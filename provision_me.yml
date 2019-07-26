@@ -4,5 +4,4 @@
   become: true
   become_user: root
   roles:
-    - name: ansible-development
-      src: https://github.com/ultral/ansible-development
+    - ultral.ansible_development
