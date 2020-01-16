@@ -25,7 +25,7 @@ Vagrant.configure('2') do |config|
   config.vm.synced_folder '../',
                           '/vagrant',
                           mount_options: ['dmode=775,fmode=644']
-  config.vm.box = 'bento/centos-7.6'
+  config.vm.box = 'bento/centos-7.7'
 
   config.vm.provision "Set permissions to #{path_to_roles_inside_vm}",
                       type: :shell,
