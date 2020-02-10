@@ -30,11 +30,13 @@ Vagrant.configure('2') do |config|
   config.vm.provision "Set permissions to #{path_to_roles_inside_vm}",
                       type: :shell,
                       inline: "mkdir -p #{path_to_roles_inside_vm} ;
-                               chmod o+w #{path_to_roles_inside_vm}"
+                               chmod o+w #{path_to_roles_inside_vm} ;
+                               yum -y install python3-pip"
 
   config.vm.box_download_insecure = true
   config.vm.provision 'ansible_local' do |ansible|
     ansible.playbook = "#{path_to_repo_inside_vm}/provision_me.yml"
+    ansible.install_mode = "pip"
     ansible.galaxy_roles_path = path_to_roles_inside_vm
     ansible.galaxy_role_file = "#{path_to_repo_inside_vm}/requirements.yml"
     ansible.config_file = "#{path_to_repo_inside_vm}/ansible.cfg"

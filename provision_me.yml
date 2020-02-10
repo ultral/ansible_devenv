@@ -4,4 +4,15 @@
   become: true
   become_user: root
   roles:
-    - ultral.ansible_development
+    - role: ultral.ansible_development
+  tasks:
+    - name: Set kernel parameters
+      # https://code.visualstudio.com/docs/setup/linux#_visual-studio-code-is-unable-to-watch-for-file-changes-in-this-large-workspace-error-enospc
+      sysctl:
+        name: fs.inotify.max_user_watches
+        value: 524288
+        sysctl_file: /etc/sysctl.d/99-vscode.conf
+    - name: linters are installed
+      yum:
+        name:
+          - ShellCheck.x86_64
