@@ -5,7 +5,7 @@
   become_user: root
   roles:
     - role: ultral.ansible_development
-  post_taks:
+  post_tasks:
     - name: Install git
       package:
         name: git
