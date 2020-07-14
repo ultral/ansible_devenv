@@ -6,9 +6,11 @@
   roles:
     - role: ultral.ansible_development
   post_tasks:
-    - name: Install git
+    - name: Install extra software
       package:
-        name: git
+        name:
+          - git
+          - epel-release
         state: present
       retries: 5
       delay: 2
@@ -22,3 +24,8 @@
       yum:
         name:
           - ShellCheck.x86_64
+    - name: Adding vagrant user to the docker group
+      user: 
+        name: vagrant
+        group: docker
+        append: true
