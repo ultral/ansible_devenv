@@ -6,9 +6,19 @@
   roles:
     - role: ultral.ansible_development
   post_taks:
-     - name: Install git
-       package:
-         name: git
-         state: present
-       retries: 5
-       delay: 2
+    - name: Install git
+      package:
+        name: git
+        state: present
+      retries: 5
+      delay: 2
+    - name: Set kernel parameters
+      # https://code.visualstudio.com/docs/setup/linux#_visual-studio-code-is-unable-to-watch-for-file-changes-in-this-large-workspace-error-enospc
+      sysctl:
+        name: fs.inotify.max_user_watches
+        value: 524288
+        sysctl_file: /etc/sysctl.d/99-vscode.conf
+    - name: linters are installed
+      yum:
+        name:
+          - ShellCheck.x86_64
