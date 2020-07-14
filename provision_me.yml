@@ -4,4 +4,11 @@
   become: true
   become_user: root
   roles:
-    - ultral.ansible_development
+    - role: ultral.ansible_development
+  post_taks:
+     - name: Install git
+       package:
+         name: git
+         state: present
+       retries: 5
+       delay: 2

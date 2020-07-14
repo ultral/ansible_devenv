@@ -25,7 +25,7 @@ Vagrant.configure('2') do |config|
   config.vm.synced_folder '../',
                           '/vagrant',
                           mount_options: ['dmode=775,fmode=644']
-  config.vm.box = 'bento/centos-7.6'
+  config.vm.box = 'bento/centos-7.7'
 
   config.vm.provision "Set permissions to #{path_to_roles_inside_vm}",
                       type: :shell,
@@ -35,6 +35,7 @@ Vagrant.configure('2') do |config|
   config.vm.box_download_insecure = true
   config.vm.provision 'ansible_local' do |ansible|
     ansible.playbook = "#{path_to_repo_inside_vm}/provision_me.yml"
+    ansible.install_mode = "pip"
     ansible.galaxy_roles_path = path_to_roles_inside_vm
     ansible.galaxy_role_file = "#{path_to_repo_inside_vm}/requirements.yml"
     ansible.config_file = "#{path_to_repo_inside_vm}/ansible.cfg"
